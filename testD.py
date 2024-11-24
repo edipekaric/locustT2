@@ -2,12 +2,13 @@ from locust import HttpUser, task, between
 import random
 import uuid
 from datetime import datetime
+import time
 
 # Global counter for session ID increment
 session_counter = 0
 
 class LoadTestUser(HttpUser):
-    wait_time = between(1, 5)
+    wait_time = between(20, 30) #Task D)d), add think time
 
     # Static list of product IDs
     product_ids = [
@@ -38,10 +39,11 @@ class LoadTestUser(HttpUser):
         self.browse_products()
         self.add_to_cart()
         self.confirm_order()
-        self.stop()
+        #self.stop()
 
     def browse_products(self):
         """Fetch the list of products from the /products endpoint."""
+        #Task D)a), browse all alailable items/products
         response = self.client.get("/products")
         if response.status_code == 200 or response.status_code == 201:
             print(f"Fetched products for session {self.session_id}.")
@@ -53,6 +55,7 @@ class LoadTestUser(HttpUser):
             self.available_products = self.product_ids  # Fallback to static list if the request fails
 
     def add_to_cart(self):
+        #Task D)b), add configurable amout of random items to cart
         num_items = random.randint(1, 5)  # Random number of items to add
         cart_content = {}
 
@@ -78,6 +81,9 @@ class LoadTestUser(HttpUser):
 
 
     def confirm_order(self):
+        #Task D)c), Confirm order from cart
+        time.sleep(7)
+        #sleeping time is the last digit of student id
         """Confirm the order."""
         payload = {
             "sessionId": self.session_id,
