@@ -6,7 +6,7 @@
 - Now, run the python script `locust -f testD.py`
 - After running the script, leave the cmd prompt open, and navigate to website `http://localhost:8089/`
 - Setup locust with following parameters:
-    - Number of users(peak capacity) - 100
-    - Ramp up(users started/second) - 100
+    - Number of users(peak capacity) - 200
+    - Ramp up(users started/second) - 10
     - Host - `http://localhost:8080`
-- This ensures that the website in second 1 will have 100 users trying to browse products, add items to cart, and confirming order
+- This ensures that the website will have at peak 200 users, and the spawn rate of users is 10 per second
